@@ -34,11 +34,24 @@ model.compile(
 # Loads the weights
 # model.load_weights(checkpoint_path)
 
-model.fit(train_images, train_labels, epochs=1, callbacks=[cp_callback])
-test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
+history = model.fit(
+    train_images, train_labels, epochs=30, callbacks=[cp_callback], validation_split=0.1
+)
+evaluation = model.evaluate(test_images, test_labels, verbose=2)
 
-print("\nTest accuracy:", test_acc)
+print("\nTest accuracy:", evaluation[0])
 
+# Visualize history
+# Plot history: Loss
+plt.plot(history.history["val_loss"])
+plt.title("Validation loss history")
+plt.ylabel("Loss value")
+plt.xlabel("No. epoch")
+plt.show()
 
-# Evaluate the model
-loss, acc = model.evaluate(test_images, test_labels, verbose=2)
+# Plot history: Accuracy
+plt.plot(history.history["val_accuracy"])
+plt.title("Validation accuracy history")
+plt.ylabel("Accuracy value (%)")
+plt.xlabel("No. epoch")
+plt.show()
