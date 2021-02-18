@@ -9,14 +9,14 @@ from tqdm import tqdm  # to track progress of loops
 from tensorflow import keras
 import os
 
-util_fmnist = __import__("util-FMNIST")
+util_fmnist = __import__("util-CIFAR")
 (train_images, train_labels), (test_images, test_labels) = util_fmnist.load_dataset()
 
-model_fmnist = __import__("model-FMNIST")
+model_fmnist = __import__("model-CIFAR")
 model = model_fmnist.define_model()
 
 # Directing the path for the checkpoint
-checkpoint_path = "training_1_FMNIST/cp.ckpt"
+checkpoint_path = "training_1_CIFAR/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 # Create a callback that saves the model's weights
