@@ -34,22 +34,34 @@ model.compile(
 # Loads the weights
 # model.load_weights(checkpoint_path)
 
-history = model.fit(train_images, train_labels, epochs=30, callbacks=[cp_callback], validation_split=.1)
+history = model.fit(
+    train_images,
+    train_labels,
+    epochs=2,
+    callbacks=[cp_callback],
+    validation_split=0.1,
+)
+model.save('./fmnist_model_1')
 evaluation = model.evaluate(test_images, test_labels, verbose=2)
 
-print("\nTest accuracy:", evaluation[0])
-
+print("\nTest accuracy:", evaluation[1])
+print(history)
 # Visualize history
 # Plot history: Loss
-plt.plot(history.history['val_loss'])
-plt.title('Validation loss history')
-plt.ylabel('Loss value')
-plt.xlabel('No. epoch')
-plt.show()
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.savefig("fmnist_accuracy.png")
+plt.clf()
 
 # Plot history: Accuracy
-plt.plot(history.history['val_accuracy'])
-plt.title('Validation accuracy history')
-plt.ylabel('Accuracy value (%)')
-plt.xlabel('No. epoch')
-plt.show()
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.savefig("fmnist_lost.png")

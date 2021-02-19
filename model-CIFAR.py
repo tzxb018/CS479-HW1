@@ -15,6 +15,8 @@ def define_model():
         activation=tf.nn.relu,
         name="hidden_1",
     )
+    pool_1 = tf.keras.layers.MaxPool2D(padding="same", pool_size=(2, 2))
+
     hidden_2 = tf.keras.layers.Conv2D(
         filters=64,
         kernel_size=3,
@@ -22,7 +24,8 @@ def define_model():
         activation=tf.nn.relu,
         name="hidden_2",
     )
-    pool_1 = tf.keras.layers.MaxPool2D(padding="same")
+    pool_2 = tf.keras.layers.MaxPool2D(padding="same", pool_size=(2, 2))
+
     hidden_3 = tf.keras.layers.Conv2D(
         filters=128,
         kernel_size=3,
@@ -30,15 +33,8 @@ def define_model():
         activation=tf.nn.relu,
         name="hidden_3",
     )
-    hidden_4 = tf.keras.layers.Conv2D(
-        filters=256,
-        kernel_size=3,
-        padding="same",
-        activation=tf.nn.relu,
-        name="hidden_4",
-    )
+    pool_3 = tf.keras.layers.MaxPool2D(padding="same", pool_size=(2, 2))
 
-    pool_2 = tf.keras.layers.MaxPool2D(padding="same")
     flatten = tf.keras.layers.Flatten()
     dense1 = tf.keras.layers.Dense(256, activation="relu")
     dense2 = tf.keras.layers.Dense(128, activation="relu")
@@ -46,11 +42,11 @@ def define_model():
     model = tf.keras.Sequential(
         [
             hidden_1,
-            hidden_2,
             pool_1,
-            hidden_3,
-            hidden_4,
+            hidden_2,
             pool_2,
+            hidden_3,
+            pool_3,
             flatten,
             dense1,
             dense2,

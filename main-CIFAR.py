@@ -35,23 +35,36 @@ model.compile(
 # model.load_weights(checkpoint_path)
 
 history = model.fit(
-    train_images, train_labels, epochs=30, callbacks=[cp_callback], validation_split=0.1
+    train_images,
+    train_labels,
+    epochs=100,
+    callbacks=[cp_callback],
+    validation_split=0.1,
 )
+model.save("./cifar_model_1")
 evaluation = model.evaluate(test_images, test_labels, verbose=2)
 
-print("\nTest accuracy:", evaluation[0])
+print("\nTest accuracy:", evaluation[1])
 
 # Visualize history
+# https://www.machinecurve.com/index.php/2020/02/09/how-to-build-a-convnet-for-cifar-10-and-cifar-100-classification-with-keras/
+# https://machinelearningmastery.com/display-deep-learning-model-training-history-in-keras/
+# Visualize history
 # Plot history: Loss
-plt.plot(history.history["val_loss"])
-plt.title("Validation loss history")
-plt.ylabel("Loss value")
-plt.xlabel("No. epoch")
-plt.show()
-
-# Plot history: Accuracy
+plt.plot(history.history["accuracy"])
 plt.plot(history.history["val_accuracy"])
-plt.title("Validation accuracy history")
-plt.ylabel("Accuracy value (%)")
-plt.xlabel("No. epoch")
-plt.show()
+plt.title("model accuracy")
+plt.ylabel("accuracy")
+plt.xlabel("epoch")
+plt.legend(["train", "test"], loc="upper left")
+plt.savefig("cifar_accuracy.png")
+plt.clf()
+
+# Plot history: loss
+plt.plot(history.history["loss"])
+plt.plot(history.history["val_loss"])
+plt.title("model loss")
+plt.ylabel("loss")
+plt.xlabel("epoch")
+plt.legend(["train", "test"], loc="upper left")
+plt.savefig("cifar_loss.png")

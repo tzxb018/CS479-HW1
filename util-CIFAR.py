@@ -24,3 +24,5 @@ def load_dataset():
 
     return (train_images, train_labels), (test_images, test_labels)
 
+    
+
