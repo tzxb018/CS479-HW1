@@ -20,12 +20,15 @@ dropping_rate = 0.1
 # ***********************************************************************************************
 model = model_fmnist.define_model(dropping_rate, activation_function)
 
+learning_rate_str = str(learning_rate).replace(".", "x")
+dropping_rate_str = str(dropping_rate).replace(".", "x")
+
 # Directing the path for the checkpoint
 path = (
     "cifar_model_lr_"
-    + str(learning_rate)
+    + learning_rate_str
     + "dr_"
-    + str(dropping_rate)
+    + dropping_rate_str
     + "activation_"
     + str(activation_function)
 )

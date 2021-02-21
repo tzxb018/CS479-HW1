@@ -26,7 +26,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(
 
 # Compiling the model
 model.compile(
-    optimizer="adam",
+    optimizer=tf.keras.optimizers.Adam(learning_rate=.001),
     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
     metrics=["accuracy"],
 )
