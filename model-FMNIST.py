@@ -6,7 +6,7 @@ from tqdm import tqdm  # to track progress of loops
 from tensorflow import keras
 
 
-def define_model():
+def define_model(dropping_rate, activation_function):
 
     model = tf.keras.Sequential(
         [
