@@ -1,5 +1,5 @@
 Deepin Dots
-/work/cse479/tbessho/homework1/
+/work/cse479/tbessho/homework1/fmnist_model_1/
 Josh Baesler
 Tomo Bessho
 Thi Nguyen
