@@ -9,10 +9,10 @@ from tqdm import tqdm  # to track progress of loops
 from tensorflow import keras
 import os
 
-util_fmnist = __import__("util-CIFAR")
-(train_images, train_labels), (test_images, test_labels) = util_fmnist.load_dataset()
+util_cifar = __import__("util-CIFAR")
+(train_images, train_labels), (test_images, test_labels) = util_cifar.load_dataset()
 
-model_fmnist = __import__("model-CIFAR")
+model_cifar = __import__("model-CIFAR")
 
 
 # ***********************************************************************************************
@@ -20,7 +20,7 @@ learning_rate = 0.001
 activation_function = "relu"
 dropping_rate = 0.1
 
-model = model_fmnist.define_model(dropping_rate, activation_function)
+model = model_cifar.define_model(dropping_rate, activation_function)
 
 learning_rate_str = str(learning_rate).replace(".", "x")
 dropping_rate_str = str(dropping_rate).replace(".", "x")
@@ -68,7 +68,7 @@ learning_rate = 0.0005
 activation_function = "relu"
 dropping_rate = 0.1
 
-model = model_fmnist.define_model(dropping_rate, activation_function)
+model = model_cifar.define_model(dropping_rate, activation_function)
 
 learning_rate_str = str(learning_rate).replace(".", "x")
 dropping_rate_str = str(dropping_rate).replace(".", "x")
@@ -116,7 +116,7 @@ learning_rate = 0.0001
 activation_function = "relu"
 dropping_rate = 0.1
 
-model = model_fmnist.define_model(dropping_rate, activation_function)
+model = model_cifar.define_model(dropping_rate, activation_function)
 
 learning_rate_str = str(learning_rate).replace(".", "x")
 dropping_rate_str = str(dropping_rate).replace(".", "x")
@@ -155,7 +155,7 @@ history_2 = model.fit(
     validation_split=0.1,
 )
 model.save(path)
-evaluation_original = model.evaluate(test_images, test_labels, verbose=2)
+evaluation_2 = model.evaluate(test_images, test_labels, verbose=2)
 
 print("\nTest accuracy:", evaluation_2[1])
 
@@ -174,7 +174,7 @@ plt.title(
 plt.ylabel("accuracy")
 plt.xlabel("epoch")
 plt.legend(
-    ["original", "learning_rate=.0005", "learning_rate=.0001",], loc="lower right",
+    ["original", "learning_rate=.0005", "learning_rate=.0001"], loc="lower right",
 )
 plt.savefig("./cifar_output/" + path + "_accuracy_graph.png")
 plt.clf()
@@ -187,11 +187,10 @@ plt.title("model loss v2 (dropout rate=" + dropping_rate_str + ", activation='re
 plt.ylabel("loss")
 plt.xlabel("epoch")
 plt.legend(
-    ["original", "learning_rate=.0005", "learning_rate=.0001",], loc="lower right",
+    ["original", "learning_rate=.0005", "learning_rate=.0001"], loc="lower right",
 )
 plt.savefig("./cifar_output/" + path + "_loss_graph.png")
-plt.savefig("./cifar_output/cifar_loss_v2_2_dr_relu_act.png")
-
+plt.clf()
 
 # plt.plot(history_original.history["val_accuracy"])
 # plt.plot(history_original.history["accuracy"])
