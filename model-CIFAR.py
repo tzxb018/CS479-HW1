@@ -58,55 +58,15 @@ def define_model(dropout_rate, activation_function):
 
 
 def define_model_v2(dropout_rate, activation_function):
-    conv_classifier = tf.keras.Sequential()
-    hidden_1 = tf.keras.layers.Conv2D(
-        filters=32,
-        kernel_size=3,
-        padding="same",
-        activation=tf.nn.relu,
-        name="hidden_1",
+
+    # resnet block
+    hidden_1 = tf.keras.layers.Conv2D(1, (1, 1), input_shape=(None, None, 3))
+    batch_1 = tf.keras.layers.BatchNormalization()
+    hidden_2 = tf.keras.layers.Conv2D(2, 1, padding="same")
+    batch_2 = tf.keras.layers.BatchNormalization()
+    hidden_3 = tf.keras.layers.Conv2D(3, (1, 1))
+    batch_3 = tf.keras.layers.BatchNormalization()
+    resblock_model = tf.keras.Sequential(
+        [hidden_1, batch_1, hidden_2, batch_2, hidden_3, batch_3,]
     )
-    hidden_2 = tf.keras.layers.Conv2D(
-        filters=64,
-        kernel_size=3,
-        padding="same",
-        activation=tf.nn.relu,
-        name="hidden_2",
-    )
-    pool_1 = tf.keras.layers.MaxPool2D(padding="same")
-    hidden_3 = tf.keras.layers.Conv2D(
-        filters=128,
-        kernel_size=3,
-        padding="same",
-        activation=tf.nn.relu,
-        name="hidden_3",
-    )
-    hidden_4 = tf.keras.layers.Conv2D(
-        filters=256,
-        kernel_size=3,
-        padding="same",
-        activation=tf.nn.relu,
-        name="hidden_4",
-    )
-    pool_2 = tf.keras.layers.MaxPool2D(padding="same")
-    flatten = tf.keras.layers.Flatten()
-    dense1 = tf.keras.layers.Dense(256, activation=activation_function)
-    dense2 = tf.keras.layers.Dense(128, activation=activation_function)
-    output = tf.keras.layers.Dense(10)
-    dropout1 = tf.keras.layers.Dropout(rate=dropout_rate)
-    dropout2 = tf.keras.layers.Dropout(rate=dropout_rate)
-    conv_classifier = tf.keras.Sequential(
-        [
-            hidden_1,
-            hidden_2,
-            pool_1,
-            hidden_3,
-            hidden_4,
-            pool_2,
-            dense1,
-            dense2,
-            flatten,
-            output,
-        ]
-    )
-    return conv_classifier
+
