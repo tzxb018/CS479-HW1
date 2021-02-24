@@ -65,7 +65,11 @@ def define_model_v2(dropout_rate, activation_function):
     preprocess = tf.keras.layers.experimental.preprocessing.Rescaling(scale=scale)
     model = tf.keras.Sequential()
     model.add(preprocess)
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, padding="same"))
+    model.add(
+        tf.keras.layers.Conv2D(
+            input_shape=(224, 224, 3), filters=64, kernel_size=3, padding="same"
+        )
+    )
     model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, padding="same"))
     model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=3, padding="same"))
