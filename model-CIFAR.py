@@ -61,16 +61,32 @@ def define_model(dropout_rate, activation_function):
 
 def define_model_v2(dropout_rate, activation_function):
 
-    # resnet block
-    hidden_1 = tf.keras.layers.Conv2D(1, (1, 1), input_shape=(None, None, 3))
-    batch_1 = tf.keras.layers.BatchNormalization()
-    hidden_2 = tf.keras.layers.Conv2D(2, 1, padding="same")
-    batch_2 = tf.keras.layers.BatchNormalization()
-    hidden_3 = tf.keras.layers.Conv2D(3, (1, 1))
-    batch_3 = tf.keras.layers.BatchNormalization()
-    resblock_model = tf.keras.Sequential(
-        [hidden_1, batch_1, hidden_2, batch_2, hidden_3, batch_3]
-    )
-
-    return resblock_model
-
+    scale = 1.0 / 255
+    preprocess = tf.keras.layers.experimental.preprocessing.Rescaling(scale=scale)
+    model = tf.keras.Sequential()
+    model.add(preprocess)
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=3))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=3))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.Conv2D(filters=512, kernel_size=3))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Dense(4096))
+    model.add(tf.keras.layers.Dense(4096))
+    model.add(tf.keras.layers.Dense(100))
+    return model
