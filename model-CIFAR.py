@@ -7,7 +7,8 @@ from tensorflow import keras
 
 
 def define_model(dropout_rate, activation_function):
-
+    scale = 1.0 / 255
+    preprocess = tf.keras.layers.experimental.preprocessing.Rescaling(scale=scale)
     hidden_1 = tf.keras.layers.Conv2D(
         filters=32,
         kernel_size=3,
@@ -41,6 +42,7 @@ def define_model(dropout_rate, activation_function):
     output = tf.keras.layers.Dense(100)
     model = tf.keras.Sequential(
         [
+            preprocess,
             hidden_1,
             pool_1,
             hidden_2,
@@ -67,6 +69,8 @@ def define_model_v2(dropout_rate, activation_function):
     hidden_3 = tf.keras.layers.Conv2D(3, (1, 1))
     batch_3 = tf.keras.layers.BatchNormalization()
     resblock_model = tf.keras.Sequential(
-        [hidden_1, batch_1, hidden_2, batch_2, hidden_3, batch_3,]
+        [hidden_1, batch_1, hidden_2, batch_2, hidden_3, batch_3]
     )
+
+    return resblock_model
 
