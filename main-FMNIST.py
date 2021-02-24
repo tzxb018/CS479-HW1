@@ -220,7 +220,7 @@ history_2 = model.fit(
     validation_split=0.1,
 )
 model.save(path)
-evaluation_original = model.evaluate(test_images, test_labels, verbose=2)
+evaluation_2 = model.evaluate(test_images, test_labels, verbose=2)
 
 print("\nTest accuracy:", evaluation_2[1])
 

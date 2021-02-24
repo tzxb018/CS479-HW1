@@ -73,4 +73,5 @@ for dr in drop_rate_arr:
     util_cifar.graph_datasets(
         history_arr, path, dropping_rate, dropping_rate_str, activation_function
     )
+    history_arr = []
 
