@@ -14,7 +14,7 @@ util_cifar = __import__("util-CIFAR")
 
 model_cifar = __import__("model-CIFAR")
 
-drop_rate_arr = [0.1, 0.25, 0.5]
+drop_rate_arr = [0.1, 0.5]
 learning_rate_arr = [0.001, 0.0005, 0.0001]
 history_arr = []
 # drop_rate_arr = [0.25]
@@ -34,7 +34,7 @@ for dr in drop_rate_arr:
 
         # Directing the path for the checkpoint
         path = (
-            "cifar_model_lr_"
+            "cifar_model_v2_lr_"
             + learning_rate_str
             + "dr_"
             + dropping_rate_str
@@ -83,11 +83,11 @@ for dr in drop_rate_arr:
             learning_rate_str,
         )
 
-        # util_cifar.graph_one(
-        #     history, path, dropping_rate, dropping_rate_str, activation_function
-        # )
-    util_cifar.graph_datasets(
-        history_arr, path, dropping_rate, dropping_rate_str, activation_function
-    )
-    history_arr = []
+        util_cifar.graph_one(
+            history, path, dropping_rate, dropping_rate_str, activation_function
+        )
+    # util_cifar.graph_datasets(
+    #     history_arr, path, dropping_rate, dropping_rate_str, activation_function
+    # )
+    # history_arr = []
 
