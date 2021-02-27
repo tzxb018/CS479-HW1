@@ -102,7 +102,7 @@ def evaluate_saved_model(
     learning_rate,
     learnig_rate_str,
 ):
-    model = keras.models.load_model("./cifar_models/" + path)
+    model = keras.models.load_model( path)
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
@@ -112,7 +112,7 @@ def evaluate_saved_model(
     print("Retrieved model from " + path)
     print("\nTest accuracy: ", evaluation[1])
 
-    f = open("cifar_output/cifar_accuarcies.txt", "a")
+    f = open("cifar_v2_output/cifar_accuarcies.txt", "a")
     f.write(
         "Dropping rate "
         + str(dropping_rate)
@@ -138,7 +138,7 @@ def evaluate_saved_model(
     plt.imshow(conf_mat)
     plt.colorbar()
     plt.savefig(
-        "cifar_output/confusion_matrix_"
+        "cifar_v2_output/confusion_matrix_"
         + dropping_rate_str
         + "_"
         + learnig_rate_str
@@ -147,3 +147,42 @@ def evaluate_saved_model(
     plt.clf()
 
     # plt.show()
+
+
+# util_cifar = __import__("util-CIFAR")
+# (train_images, train_labels), (test_images, test_labels) = util_cifar.load_dataset()
+
+# drop_rate_arr = [0.1]
+# learning_rate_arr = [0.001, 0.0005, 0.0001]
+# history_arr = []
+# # drop_rate_arr = [0.25]
+# for dr in drop_rate_arr:
+#     for lr in learning_rate_arr:
+
+#         # ***********************************************************************************************
+#         learning_rate = lr
+#         activation_function = "relu"
+#         dropping_rate = dr
+
+#         learning_rate_str = str(learning_rate).replace(".", "x")
+#         dropping_rate_str = str(dropping_rate).replace(".", "x")
+
+#         # Directing the path for the checkpoint
+#         path = (
+#             "cifar_model_v2_lr_"
+#             + learning_rate_str
+#             + "dr_"
+#             + dropping_rate_str
+#             + "activation_"
+#             + str(activation_function)
+#         )
+
+#         evaluate_saved_model(
+#             path,
+#             test_images,
+#             test_labels,
+#             dropping_rate_str,
+#             dropping_rate,
+#             learning_rate,
+#             learning_rate_str,
+#         )

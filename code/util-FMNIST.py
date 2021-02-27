@@ -119,40 +119,40 @@ def evaluate_saved_model(
     # plt.show()
 
 
-util_fmnist = __import__("util-FMNIST")
-(train_images, train_labels), (test_images, test_labels) = util_fmnist.load_dataset()
+# util_fmnist = __import__("util-FMNIST")
+# (train_images, train_labels), (test_images, test_labels) = util_fmnist.load_dataset()
 
-drop_rate_arr = [0.1]
-learning_rate_arr = [0.001, 0.0005, 0.0001]
-history_arr = []
-# drop_rate_arr = [0.25]
-for dr in drop_rate_arr:
-    for lr in learning_rate_arr:
+# drop_rate_arr = [0.1]
+# learning_rate_arr = [0.001, 0.0005, 0.0001]
+# history_arr = []
+# # drop_rate_arr = [0.25]
+# for dr in drop_rate_arr:
+#     for lr in learning_rate_arr:
 
-        # ***********************************************************************************************
-        learning_rate = lr
-        activation_function = "relu"
-        dropping_rate = dr
+#         # ***********************************************************************************************
+#         learning_rate = lr
+#         activation_function = "relu"
+#         dropping_rate = dr
 
-        learning_rate_str = str(learning_rate).replace(".", "x")
-        dropping_rate_str = str(dropping_rate).replace(".", "x")
+#         learning_rate_str = str(learning_rate).replace(".", "x")
+#         dropping_rate_str = str(dropping_rate).replace(".", "x")
 
-        # Directing the path for the checkpoint
-        path = (
-            "fmnist_model_lr_"
-            + learning_rate_str
-            + "dr_"
-            + dropping_rate_str
-            + "activation_"
-            + str(activation_function)
-        )
+#         # Directing the path for the checkpoint
+#         path = (
+#             "fmnist_model_lr_"
+#             + learning_rate_str
+#             + "dr_"
+#             + dropping_rate_str
+#             + "activation_"
+#             + str(activation_function)
+#         )
 
-        evaluate_saved_model(
-            path,
-            test_images,
-            test_labels,
-            dropping_rate_str,
-            dropping_rate,
-            learning_rate,
-            learning_rate_str,
-        )
+#         evaluate_saved_model(
+#             path,
+#             test_images,
+#             test_labels,
+#             dropping_rate_str,
+#             dropping_rate,
+#             learning_rate,
+#             learning_rate_str,
+# )
