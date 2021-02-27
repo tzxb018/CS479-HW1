@@ -7,3 +7,4 @@ Dropping rate 0.25 learning rate 0.0001: 0.4345000088214874
 Dropping rate 0.5 learning rate 0.001: 0.43070000410079956
 Dropping rate 0.5 learning rate 0.0005: 0.4733000099658966
 Dropping rate 0.5 learning rate 0.0001: 0.4586000144481659
+

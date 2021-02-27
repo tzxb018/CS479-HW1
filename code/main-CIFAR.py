@@ -11,10 +11,12 @@ import os
 
 util_cifar = __import__("util-CIFAR")
 (train_images, train_labels), (test_images, test_labels) = util_cifar.load_dataset()
+train_images = tf.cast(train_images, tf.float32)
+train_labels = tf.cast(train_labels, tf.float32)
 
 model_cifar = __import__("model-CIFAR")
 
-drop_rate_arr = [0.1, 0.5]
+drop_rate_arr = [0.5]
 learning_rate_arr = [0.001, 0.0005, 0.0001]
 history_arr = []
 # drop_rate_arr = [0.25]
@@ -25,7 +27,7 @@ for dr in drop_rate_arr:
         learning_rate = lr
         activation_function = "relu"
         dropping_rate = dr
-        epochs = 50
+        epochs = 100
 
         model = model_cifar.define_model_v2(dropping_rate, activation_function)
 
@@ -64,7 +66,7 @@ for dr in drop_rate_arr:
             train_images,
             train_labels,
             epochs=epochs,
-            callbacks=[cp_callback],
+            callbacks=[cp_callback, early_stopping],
             validation_split=0.1,
         )
         model.save(path)
@@ -83,11 +85,11 @@ for dr in drop_rate_arr:
             learning_rate_str,
         )
 
-        util_cifar.graph_one(
-            history, path, dropping_rate, dropping_rate_str, activation_function
-        )
-    # util_cifar.graph_datasets(
-    #     history_arr, path, dropping_rate, dropping_rate_str, activation_function
-    # )
-    # history_arr = []
+        # util_cifar.graph_one(
+        #     history, path, dropping_rate, dropping_rate_str, activation_function
+        # )
+    util_cifar.graph_datasets(
+        history_arr, path, dropping_rate, dropping_rate_str, activation_function
+    )
+    history_arr = []
 

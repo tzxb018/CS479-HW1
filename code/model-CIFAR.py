@@ -63,6 +63,7 @@ def define_model_v2(dropout_rate, activation_function):
 
     scale = 1.0 / 255
     preprocess = tf.keras.layers.experimental.preprocessing.Rescaling(scale=scale)
+
     model = tf.keras.Sequential()
     model.add(preprocess)
     model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, padding="same"))

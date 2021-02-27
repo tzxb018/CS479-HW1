@@ -1,0 +1,6 @@
+Dropping rate 0.1 learning rate 0.001: 0.5530999898910522
+Dropping rate 0.1 learning rate 0.0005: 0.5465999841690063
+Dropping rate 0.1 learning rate 0.0001: 0.5295000076293945
+Dropping rate 0.1 learning rate 0.001: 0.5530999898910522
+Dropping rate 0.1 learning rate 0.0005: 0.5465999841690063
+Dropping rate 0.1 learning rate 0.0001: 0.5295000076293945
